@@ -95,6 +95,9 @@ app.use("/listings/:id/reviews",reviewRouter)
 app.use("/",userRouter);
 
 
+app.all("*",wrapAsync((req,res,next)=>{
+    next(new expressError(400,"page not found"));
+}))
 // midlewarer//
 app.use((err,req,res,next)=>{
     
@@ -105,11 +108,9 @@ app.use((err,req,res,next)=>{
     
 })
 
-// app.all("*",wrapAsync((req,res,next)=>{
-//     next(new expressError(400,"page not found"));
-// }))
 
-app.use((req,res,next)=>{
-    res.send("page not found");
-})
+// app.use((req,res,next)=>{
+
+//     res.send("page not found");
+// })
 
