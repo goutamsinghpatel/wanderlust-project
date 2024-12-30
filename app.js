@@ -76,7 +76,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-//port
+ //port
 app.listen(port,()=>{
     console.log("server started")
 });
@@ -93,6 +93,13 @@ app.use((req,res,next)=>{
 app.use("/listings",listingRouter)
 app.use("/listings/:id/reviews",reviewRouter)
 app.use("/",userRouter);
+app.get("/",async(req,res)=>{
+    const allListings= await Listing.find({});
+  res.render("listings/index.ejs",{allListings});
+  
+  }
+
+)
 
 
 // app.all("*",wrapAsync((req,res,next)=>{
